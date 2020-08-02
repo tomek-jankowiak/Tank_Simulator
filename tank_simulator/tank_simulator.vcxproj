@@ -20,12 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="shaderProgram.cpp" />
+    <ClCompile Include="Tank.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
-    <ClInclude Include="myCube.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="shaderProgram.h" />
+    <ClInclude Include="Tank.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="f_basic.glsl" />
