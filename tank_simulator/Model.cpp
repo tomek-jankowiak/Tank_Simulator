@@ -2,8 +2,9 @@
 
 #include <fstream>
 
-const Model *Model::body, *Model::turret, *Model::cannon, *Model::antenna1, *Model::antenna2, *Model::hatch, *Model::frontLight, 
-	*Model::rearLight, *Model::track, *Model::engineWheel, *Model::wheel, *Model::smallWheel;
+const Model *Model::antenna1, *Model::antenna2, *Model::body, *Model::cannon, *Model::hatch, *Model::leftEngineWheel,
+	*Model::leftSmallWheel, *Model::leftWheel, *Model::frontLight, *Model::rearLight, *Model::machineGun,
+	*Model::rightEngineWheel, *Model::rightSmallWheel, *Model::rightWheel, *Model::track, *Model::turret;
 
 
 Model::Model(const std::vector<float>& vertices, const std::vector<float>& normals, const std::vector<float>& uvs) :
@@ -25,35 +26,42 @@ void Model::render() const
 }
 
 void Model::loadModels()
-{
+{	antenna1 = fromOBJfile("models/antenna_1.obj");
+	antenna2 = fromOBJfile("models/antenna_2.obj");
 	body = fromOBJfile("models/body.obj");
-	turret = fromOBJfile("models/turret.obj");
 	cannon = fromOBJfile("models/cannon.obj");
-	//antenna1 = fromOBJfile("models/antenna_1.obj");
-	//antenna2 = fromOBJfile("models/antenna_2.obj");
-	//hatch = fromOBJfile("models/hatch.obj");
-	//frontLight = fromOBJfile("models/light_front.obj");
-	//rearLight = fromOBJfile("models/light_rear.obj");
-	//track = fromOBJfile("models/track.obj");
-	//engineWheel = fromOBJfile("models/engine_wheel.obj");
-	//wheel = fromOBJfile("model/wheel.obj");
-	//smallWheel = fromOBJfile("models/small_wheel.obj");
+	hatch = fromOBJfile("models/hatch.obj");
+	leftEngineWheel = fromOBJfile("models/left_engine_wheel.obj");
+	leftSmallWheel = fromOBJfile("models/left_small_wheel.obj");
+	leftWheel = fromOBJfile("models/left_wheel.obj");
+	frontLight = fromOBJfile("models/light_front.obj");
+	rearLight = fromOBJfile("models/light_rear.obj");
+	machineGun = fromOBJfile("models/machine_gun.obj");
+	rightEngineWheel = fromOBJfile("models/right_engine_wheel.obj");
+	rightSmallWheel = fromOBJfile("models/right_small_wheel.obj");
+	rightWheel = fromOBJfile("models/right_wheel.obj");
+	track = fromOBJfile("models/track.obj");
+	turret = fromOBJfile("models/turret.obj");
 }
 
 void Model::deleteModels()
 {
-	delete body;
-	delete turret;
-	delete cannon;
 	delete antenna1;
 	delete antenna2;
+	delete body;
+	delete cannon;
 	delete hatch;
+	delete leftEngineWheel;
+	delete leftSmallWheel;
+	delete leftWheel;
 	delete frontLight;
 	delete rearLight;
+	delete machineGun;
+	delete rightEngineWheel;
+	delete rightSmallWheel;
+	delete rightWheel;
 	delete track;
-	delete engineWheel;
-	delete wheel;
-	delete smallWheel;
+	delete turret;
 }
 
 Model* Model::fromOBJfile(const std::string& filename)

@@ -70,9 +70,17 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
         if (key == GLFW_KEY_RIGHT)
             tank->turnSpeed = -PI / 2;
         if (key == GLFW_KEY_UP)
-            tank->moveSpeed = 3;
-        if (key == GLFW_KEY_DOWN)
             tank->moveSpeed = -3;
+        if (key == GLFW_KEY_DOWN)
+            tank->moveSpeed = 3;
+        if (key == GLFW_KEY_Q)
+            tank->turretTurnSpeed = PI / 6;
+        if (key == GLFW_KEY_E)
+            tank->turretTurnSpeed = -PI / 6;
+        if (key == GLFW_KEY_W)
+            tank->cannonTurnSpeed = PI / 6;
+        if (key == GLFW_KEY_S)
+            tank->cannonTurnSpeed = -PI / 6;
     }
 
     if (action == GLFW_RELEASE) {
@@ -84,6 +92,14 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
             tank->moveSpeed = 0;
         if (key == GLFW_KEY_DOWN)
             tank->moveSpeed = 0;
+        if (key == GLFW_KEY_Q)
+            tank->turretTurnSpeed = 0;
+        if (key == GLFW_KEY_E)
+            tank->turretTurnSpeed = 0;
+        if (key == GLFW_KEY_W)
+            tank->cannonTurnSpeed = 0;
+        if (key == GLFW_KEY_S)
+            tank->cannonTurnSpeed = 0;
     }
 }
 
@@ -131,7 +147,7 @@ void initOpenGLProgram(GLFWwindow *window)
 
     P = glm::perspective(FOV, (float)INITIAL_WIDTH / INITIAL_HEIGHT, Z_NEAR, Z_FAR);
     V = glm::lookAt(
-        glm::vec3(.0f, 3.0f, -5.0f),
+        glm::vec3(.0f, 7.0f, -7.0f),
         glm::vec3(.0f, .0f, .0f),
         glm::vec3(.0f, 1.0f, .0f)
     );
@@ -148,6 +164,7 @@ void initOpenGLProgram(GLFWwindow *window)
 void freeOpenGLProgram(GLFWwindow* window) 
 {
     ShaderProgram::deleteShaders();
+    Model::deleteModels();
 }
 
 void drawScene(GLFWwindow* window)
@@ -158,11 +175,16 @@ void drawScene(GLFWwindow* window)
     glUniformMatrix4fv(ShaderProgram::basicShader->u("V"), 1, false, glm::value_ptr(V));
 
     if (tank->turnSpeed != 0)
-        tank->turn(glfwGetTime());
+        tank->turnTank(glfwGetTime());
     if (tank->moveSpeed != 0)
-        tank->move(glfwGetTime());
+        tank->moveTank(glfwGetTime());
+    if (tank->turretTurnSpeed != 0)
+        tank->turnTurret(glfwGetTime());
+    if (tank->cannonTurnSpeed != 0)
+        tank->turnCannon(glfwGetTime());
+
     glfwSetTime(0);
-    tank->render();
+    tank->renderTank();
 
     glfwSwapBuffers(window);
 }

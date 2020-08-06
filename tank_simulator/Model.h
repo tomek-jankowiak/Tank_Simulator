@@ -21,7 +21,8 @@ public:
 	static void loadModels();
 	static void deleteModels();
 
-	static const Model *body, *turret, *cannon, *antenna1, *antenna2, *hatch, *frontLight, *rearLight, 
-		*track, *engineWheel, *wheel, *smallWheel;
+	static const Model *antenna1, *antenna2, *body, *cannon, *hatch, *leftEngineWheel,
+		*leftSmallWheel, *leftWheel, *frontLight, *rearLight, *machineGun,
+		*rightEngineWheel, *rightSmallWheel, *rightWheel, *track, *turret;
 };
 
