@@ -23,12 +23,14 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="shaderProgram.cpp" />
     <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="Teren.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="shaderProgram.h" />
     <ClInclude Include="Tank.h" />
+    <ClInclude Include="Teren.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="f_basic.glsl" />

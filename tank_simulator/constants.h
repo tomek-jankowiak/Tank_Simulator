@@ -11,11 +11,13 @@ Z_FAR = 50.0f,
 TANK_ACCELERATION = 0.2f,
 TANK_MAX_SPEED = 20.0f,
 TANK_MAX_CANNON_ANGLE = 20.0f * PI / 180,
-TANK_MIN_CANNON_ANGLE = -10.0f * PI / 180;
+TANK_MIN_CANNON_ANGLE = -10.0f * PI / 180,
+ZERO_LEVEL = -0.5f;  // the height value of the lowest point of the tank/track
 
 const int
 INITIAL_WIDTH = 1000,
-INITIAL_HEIGHT = 1000;
+INITIAL_HEIGHT = 1000,
+MAX_TERRAIN_N = 100;  // max number of squares that make up the terrain
 
 using namespace glm;
 const vec3
@@ -64,7 +66,6 @@ TANK_RIGHT_SMALL_WHEELS[] = {
 	vec3(0.76f, -0.02f, -0.42f),
 	vec3(0.76f, -0.02f, -0.86f)
 };
-
 
 #endif
 
