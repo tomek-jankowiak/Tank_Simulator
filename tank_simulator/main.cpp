@@ -12,6 +12,8 @@
 #include "Tank.h"
 #include "Model.h"
 
+#include "Teren.h"
+
 void errorCallback(int, const char*);
 void keyCallback(GLFWwindow*, int, int, int, int);
 void windowResizeCallback(GLFWwindow*, int, int);
@@ -33,6 +35,7 @@ angleY = 0;
 glm::mat4 P, V, M;
 
 Tank *tank;
+
 
 int main() 
 {
@@ -140,10 +143,15 @@ GLFWwindow* initWindow()
     return window;
 }
 
+// ------------------------------------------------------------------------------------------
+
 void initOpenGLProgram(GLFWwindow *window) 
 {
     ShaderProgram::loadShaders();
     Model::loadModels();
+
+    float terrainTriSize = 2.0f;  // the size of a triangle's side used when building terrain
+    Teren::przygotujTeren(terrainTriSize, ZERO_LEVEL, MAX_TERRAIN_N);
 
     P = glm::perspective(FOV, (float)INITIAL_WIDTH / INITIAL_HEIGHT, Z_NEAR, Z_FAR);
     V = glm::lookAt(
@@ -159,6 +167,7 @@ void initOpenGLProgram(GLFWwindow *window)
 
     glfwSetKeyCallback(window, keyCallback);
     glfwSetWindowSizeCallback(window, windowResizeCallback);
+
 }
 
 void freeOpenGLProgram(GLFWwindow* window) 
@@ -173,6 +182,10 @@ void drawScene(GLFWwindow* window)
     ShaderProgram::basicShader->use();
     glUniformMatrix4fv(ShaderProgram::basicShader->u("P"), 1, false, glm::value_ptr(P));
     glUniformMatrix4fv(ShaderProgram::basicShader->u("V"), 1, false, glm::value_ptr(V));
+
+    Teren::trawa->renderTeren(
+        glm::vec3(MAX_TERRAIN_N * -1.0f, ZERO_LEVEL, MAX_TERRAIN_N * -0.8f)
+    );
 
     if (tank->turnSpeed != 0)
         tank->turnTank(glfwGetTime());
