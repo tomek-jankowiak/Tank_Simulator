@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <string>
 
 class Tank
 {
@@ -9,6 +10,10 @@ private:
 	glm::mat4 bodyM;
 	float turretAngle;
 	float cannonAngle;
+	float leftSmallWheelsAngle;
+	float leftWheelsAngle;
+	float rightSmallWheelsAngle;
+	float rightWheelsAngle;
 
 public:
 	float moveSpeed;
@@ -16,12 +21,11 @@ public:
 	float turretTurnSpeed;
 	float cannonTurnSpeed;
 
-	Tank();
+	Tank(glm::mat4&);
 
 	void renderTank();
-	glm::mat4 elementM(glm::mat4, glm::vec3);
-	void moveTank(float);
-	void turnTank(float);
+	void moveTank(float, std::string&);
+	void turnTank(float, std::string&);
 	void turnTurret(float);
 	void turnCannon(float);
 

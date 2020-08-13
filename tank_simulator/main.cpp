@@ -11,7 +11,6 @@
 #include "shaderProgram.h"
 #include "Tank.h"
 #include "Model.h"
-
 #include "Teren.h"
 
 void errorCallback(int, const char*);
@@ -26,13 +25,11 @@ int
 currWidth = INITIAL_WIDTH,
 currHeight = INITIAL_HEIGHT;
 
-float
-speedX = 0,
-speedY = 0,
-angleX = 0,
-angleY = 0;
-
 glm::mat4 P, V, M;
+
+std::string
+tankMoveMode,
+tankTurnDirection;
 
 Tank *tank;
 
@@ -69,13 +66,13 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 {
     if (action == GLFW_PRESS) {
         if (key == GLFW_KEY_LEFT)
-            tank->turnSpeed = PI / 2;
+            tankTurnDirection = "left";
         if (key == GLFW_KEY_RIGHT)
-            tank->turnSpeed = -PI / 2;
+            tankTurnDirection = "right";
         if (key == GLFW_KEY_UP)
-            tank->moveSpeed = -3;
+            tankMoveMode = "forward";
         if (key == GLFW_KEY_DOWN)
-            tank->moveSpeed = 3;
+            tankMoveMode = "backward";
         if (key == GLFW_KEY_Q)
             tank->turretTurnSpeed = PI / 6;
         if (key == GLFW_KEY_E)
@@ -88,13 +85,13 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
     if (action == GLFW_RELEASE) {
         if (key == GLFW_KEY_LEFT)
-            tank->turnSpeed = 0;
+            tankTurnDirection = "";
         if (key == GLFW_KEY_RIGHT)
-            tank->turnSpeed = 0;
+            tankTurnDirection = "";
         if (key == GLFW_KEY_UP)
-            tank->moveSpeed = 0;
+            tankMoveMode = "free";
         if (key == GLFW_KEY_DOWN)
-            tank->moveSpeed = 0;
+            tankMoveMode = "free";
         if (key == GLFW_KEY_Q)
             tank->turretTurnSpeed = 0;
         if (key == GLFW_KEY_E)
@@ -159,8 +156,9 @@ void initOpenGLProgram(GLFWwindow *window)
         glm::vec3(.0f, .0f, .0f),
         glm::vec3(.0f, 1.0f, .0f)
     );
+    M = glm::mat4(1.0f);
 
-    tank = new Tank();
+    tank = new Tank(M);
 
     glClearColor(0, 0, 0, 1);
     glEnable(GL_DEPTH_TEST);
@@ -187,10 +185,8 @@ void drawScene(GLFWwindow* window)
         glm::vec3(MAX_TERRAIN_N * -1.0f, ZERO_LEVEL, MAX_TERRAIN_N * -0.8f)
     );
 
-    if (tank->turnSpeed != 0)
-        tank->turnTank(glfwGetTime());
-    if (tank->moveSpeed != 0)
-        tank->moveTank(glfwGetTime());
+    tank->turnTank(glfwGetTime(), tankTurnDirection);
+    tank->moveTank(glfwGetTime(), tankMoveMode);
     if (tank->turretTurnSpeed != 0)
         tank->turnTurret(glfwGetTime());
     if (tank->cannonTurnSpeed != 0)
