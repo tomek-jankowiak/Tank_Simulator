@@ -12,6 +12,7 @@
 #include "Tank.h"
 #include "Model.h"
 #include "Teren.h"
+#include "Camera.h"
 
 void errorCallback(int, const char*);
 void keyCallback(GLFWwindow*, int, int, int, int);
@@ -32,6 +33,7 @@ tankMoveMode,
 tankTurnDirection;
 
 Tank *tank;
+Camera* camera;
 
 
 int main() 
@@ -81,6 +83,14 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
             tank->cannonTurnSpeed = PI / 6;
         if (key == GLFW_KEY_S)
             tank->cannonTurnSpeed = -PI / 6;
+        if (key == GLFW_KEY_J)
+            camera->camHorizontalSpeed = -PI / 6;
+        if (key == GLFW_KEY_L)
+            camera->camHorizontalSpeed = PI / 6;
+        if (key == GLFW_KEY_K)
+            camera->camVerticalSpeed = -PI * 2;
+        if (key == GLFW_KEY_I)
+            camera->camVerticalSpeed = PI * 2;
     }
 
     if (action == GLFW_RELEASE) {
@@ -100,6 +110,14 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
             tank->cannonTurnSpeed = 0;
         if (key == GLFW_KEY_S)
             tank->cannonTurnSpeed = 0;
+        if (key == GLFW_KEY_J)
+            camera->camHorizontalSpeed = .0f;
+        if (key == GLFW_KEY_L)
+            camera->camHorizontalSpeed = .0f;
+        if (key == GLFW_KEY_K)
+            camera->camVerticalSpeed = .0f;
+        if (key == GLFW_KEY_I)
+            camera->camVerticalSpeed = .0f;
     }
 }
 
@@ -159,6 +177,8 @@ void initOpenGLProgram(GLFWwindow *window)
     M = glm::mat4(1.0f);
 
     tank = new Tank(M);
+    camera = new Camera(tank);
+    camera->moveCamera(0);
 
     glClearColor(0, 0, 0, 1);
     glEnable(GL_DEPTH_TEST);
@@ -177,6 +197,13 @@ void freeOpenGLProgram(GLFWwindow* window)
 void drawScene(GLFWwindow* window)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    V = glm::lookAt(
+            camera->getCamPosition(),
+            tank->getTankPosition(),
+            glm::vec3(.0f, 1.0f, .0f)
+        );
+
     ShaderProgram::basicShader->use();
     glUniformMatrix4fv(ShaderProgram::basicShader->u("P"), 1, false, glm::value_ptr(P));
     glUniformMatrix4fv(ShaderProgram::basicShader->u("V"), 1, false, glm::value_ptr(V));
@@ -191,6 +218,8 @@ void drawScene(GLFWwindow* window)
         tank->turnTurret(glfwGetTime());
     if (tank->cannonTurnSpeed != 0)
         tank->turnCannon(glfwGetTime());
+    
+    camera->moveCamera(glfwGetTime());
 
     glfwSetTime(0);
     tank->renderTank();

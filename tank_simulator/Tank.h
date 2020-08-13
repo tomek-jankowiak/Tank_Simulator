@@ -8,6 +8,7 @@ class Tank
 private:
 	glm::vec3 position;
 	glm::mat4 bodyM;
+	float bodyAngle;
 	float turretAngle;
 	float cannonAngle;
 	float leftSmallWheelsAngle;
@@ -28,6 +29,9 @@ public:
 	void turnTank(float, std::string&);
 	void turnTurret(float);
 	void turnCannon(float);
+	void updateTankPosition();
 
+	glm::vec3 getTankPosition();
+	float getTankBodyAngle();
 };
 
