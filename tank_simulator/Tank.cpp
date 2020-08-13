@@ -11,6 +11,7 @@ Tank::Tank(glm::mat4 &M)
 {
 	position = glm::vec3(.0f, .0f, .0f);
 	bodyM = M;
+	bodyAngle = .0f;
 	turretAngle = .0f;
 	cannonAngle = .0f;
 	leftSmallWheelsAngle = .0f;
@@ -153,6 +154,7 @@ void Tank::moveTank(float time, std::string &mode)
 
 	float shift = moveSpeed * time;
 	bodyM = glm::translate(bodyM, glm::vec3(.0f, .0f, -shift));
+	updateTankPosition();
 }
 
 void Tank::turnTank(float time, std::string &direction)
@@ -193,6 +195,8 @@ void Tank::turnTank(float time, std::string &direction)
 
 	}
 	bodyM = glm::rotate(bodyM, angle, glm::vec3(.0f, 1.0f, .0f));
+	bodyAngle += angle;
+	updateTankPosition();
 }
 
 void Tank::turnTurret(float time)
@@ -207,3 +211,10 @@ void Tank::turnCannon(float time)
 	else if (cannonTurnSpeed < 0 && cannonAngle > TANK_MIN_CANNON_ANGLE)
 		cannonAngle += cannonTurnSpeed * time;
 }
+
+void Tank::updateTankPosition() {
+	position = glm::vec3(bodyM[3].x, bodyM[3].y, bodyM[3].z);
+}
+
+glm::vec3 Tank::getTankPosition() { return position; }
+float Tank::getTankBodyAngle() { return bodyAngle; }

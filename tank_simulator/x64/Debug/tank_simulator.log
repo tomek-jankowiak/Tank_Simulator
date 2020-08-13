@@ -1,6 +1,13 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: Katalog pośredni (x64\Debug\) zawiera pliki udostępnione z innego projektu (tank.vcxproj). Może to spowodować niepoprawne zachowanie podczas oczyszczania i ponownej kompilacji.
+﻿  Camera.cpp
   Tank.cpp
-D:\Studia\GKiW\tank_simulator\tank_simulator\Tank.cpp(160,16): warning C4305: "inicjowanie": obcięcie z "double" do "float"
-D:\Studia\GKiW\tank_simulator\tank_simulator\Tank.cpp(166,25): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-D:\Studia\GKiW\tank_simulator\tank_simulator\Tank.cpp(175,26): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-  tank_simulator.vcxproj -> D:\Studia\GKiW\tank_simulator\x64\Debug\tank_simulator.exe
+C:\Users\asus\Documents\GitHub\Tank_Simulator\tank_simulator\Tank.cpp(162,16): warning C4305: "inicjowanie": obcięcie z "double" do "float"
+C:\Users\asus\Documents\GitHub\Tank_Simulator\tank_simulator\Tank.cpp(168,25): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\asus\Documents\GitHub\Tank_Simulator\tank_simulator\Tank.cpp(177,26): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+  main.cpp
+C:\Users\asus\Documents\GitHub\Tank_Simulator\tank_simulator\main.cpp(215,31): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\asus\Documents\GitHub\Tank_Simulator\tank_simulator\main.cpp(216,31): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\asus\Documents\GitHub\Tank_Simulator\tank_simulator\main.cpp(218,37): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\asus\Documents\GitHub\Tank_Simulator\tank_simulator\main.cpp(220,37): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\asus\Documents\GitHub\Tank_Simulator\tank_simulator\main.cpp(222,35): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+  Generowanie kodu...
+  tank_simulator.vcxproj -> C:\Users\asus\Documents\GitHub\Tank_Simulator\x64\Debug\tank_simulator.exe

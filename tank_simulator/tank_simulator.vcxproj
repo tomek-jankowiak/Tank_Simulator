@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="shaderProgram.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="Teren.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="shaderProgram.h" />
