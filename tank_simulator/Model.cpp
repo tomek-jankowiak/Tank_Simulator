@@ -18,7 +18,7 @@ void Model::render() const
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(0, 4, GL_FLOAT, false, 0, _vertices.data());
 	glVertexAttribPointer(1, 4, GL_FLOAT, false, 0, _normals.data());
-	glVertexAttribPointer(2, 4, GL_FLOAT, false, 0, _uvs.data());
+	glVertexAttribPointer(2, 2, GL_FLOAT, false, 0, _uvs.data());
 	glDrawArrays(GL_TRIANGLES, 0, _count);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

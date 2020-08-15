@@ -2,6 +2,7 @@
 #include "shaderProgram.h"
 #include "constants.h"
 #include "Model.h"
+#include "Texture.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>

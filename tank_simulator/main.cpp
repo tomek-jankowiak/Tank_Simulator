@@ -11,6 +11,7 @@
 #include "shaderProgram.h"
 #include "Tank.h"
 #include "Model.h"
+#include "Texture.h"
 #include "Teren.h"
 #include "Camera.h"
 
@@ -27,6 +28,7 @@ currWidth = INITIAL_WIDTH,
 currHeight = INITIAL_HEIGHT;
 
 glm::mat4 P, V, M;
+glm::vec4 light = glm::vec4(.0f, -7.0f, -4.0f, 1.0f);
 
 std::string
 tankMoveMode,
@@ -164,6 +166,7 @@ void initOpenGLProgram(GLFWwindow *window)
 {
     ShaderProgram::loadShaders();
     Model::loadModels();
+    Texture::loadTextures();
 
     float terrainTriSize = 2.0f;  // the size of a triangle's side used when building terrain
     Teren::przygotujTeren(terrainTriSize, ZERO_LEVEL, MAX_TERRAIN_N);
@@ -192,6 +195,7 @@ void freeOpenGLProgram(GLFWwindow* window)
 {
     ShaderProgram::deleteShaders();
     Model::deleteModels();
+    Texture::deleteTextures();
 }
 
 void drawScene(GLFWwindow* window)
@@ -203,7 +207,7 @@ void drawScene(GLFWwindow* window)
             tank->getTankPosition(),
             glm::vec3(.0f, 1.0f, .0f)
         );
-
+    
     ShaderProgram::basicShader->use();
     glUniformMatrix4fv(ShaderProgram::basicShader->u("P"), 1, false, glm::value_ptr(P));
     glUniformMatrix4fv(ShaderProgram::basicShader->u("V"), 1, false, glm::value_ptr(V));

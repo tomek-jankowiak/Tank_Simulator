@@ -1,6 +1,6 @@
 ﻿#include "shaderprogram.h"
 
-const ShaderProgram* ShaderProgram::basicShader;
+const ShaderProgram *ShaderProgram::basicShader, *ShaderProgram::tankShader;
 
 ShaderProgram::ShaderProgram(const char* vertexShaderFile, const char* geometryShaderFile, const char* fragmentShaderFile)
 {
@@ -122,9 +122,11 @@ GLuint ShaderProgram::a(const char* variableName) const
 void ShaderProgram::loadShaders()
 {
 	basicShader = new ShaderProgram("v_basic.glsl", nullptr, "f_basic.glsl");
+	tankShader = new ShaderProgram("phongVertex.glsl", nullptr, "phongFragment.glsl");
 }
 
 void ShaderProgram::deleteShaders()
 {
 	delete basicShader;
+	delete tankShader;
 }

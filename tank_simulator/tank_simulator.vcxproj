@@ -20,22 +20,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="shaderProgram.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="Teren.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="constants.h" />
+    <ClInclude Include="lodepng.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="shaderProgram.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="Teren.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="f_basic.glsl" />
+    <None Include="phongFragment.glsl" />
+    <None Include="phongVertex.glsl" />
     <None Include="v_basic.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
