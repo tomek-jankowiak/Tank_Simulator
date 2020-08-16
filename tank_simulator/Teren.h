@@ -10,13 +10,13 @@
 class Teren
 {
 public:
-	int terCount;
-	std::vector<float> terVerts;
+	int _terCount;
+	std::vector<float> _terVerts, _terNorms, _terUV;
 
-	Teren(const std::vector<float>&);
+	Teren(const std::vector<float>&, const std::vector<float>&, const std::vector<float>&);
 
-	static void przygotujTeren(float, float, int);
+	static void prepareTeren(float, float, int);
 	void renderTeren(glm::vec3) const;
 
-	static const Teren* trawa;
+	static const Teren* grass;
 };

@@ -17,12 +17,13 @@ TANK_MAX_CANNON_ANGLE = 20.0f * PI / 180,
 TANK_MIN_CANNON_ANGLE = -10.0f * PI / 180,
 TANK_SMALL_WHEEL_RADIUS = 0.8f,
 TANK_WHEEL_RADIUS = 0.15f,
-ZERO_LEVEL = -0.5f;  // the height value of the lowest point of the tank/track
+ZERO_LEVEL = -0.5f,  // the height value of the lowest point of the tank/track
+TERRAIN_TRIANGLE_SIZE = 16.0f;  // the size of a triangle's side used when building terrain
 
 const int
 INITIAL_WIDTH = 1000,
 INITIAL_HEIGHT = 1000,
-MAX_TERRAIN_N = 100;  // max number of squares that make up the terrain
+MAX_TERRAIN_N = 25;  // max number of squares that make up the terrain
 
 using namespace glm;
 const vec3

@@ -168,8 +168,7 @@ void initOpenGLProgram(GLFWwindow *window)
     Model::loadModels();
     Texture::loadTextures();
 
-    float terrainTriSize = 2.0f;  // the size of a triangle's side used when building terrain
-    Teren::przygotujTeren(terrainTriSize, ZERO_LEVEL, MAX_TERRAIN_N);
+    Teren::prepareTeren(TERRAIN_TRIANGLE_SIZE, ZERO_LEVEL, MAX_TERRAIN_N);
 
     P = glm::perspective(FOV, (float)INITIAL_WIDTH / INITIAL_HEIGHT, Z_NEAR, Z_FAR);
     V = glm::lookAt(
@@ -212,8 +211,9 @@ void drawScene(GLFWwindow* window)
     glUniformMatrix4fv(ShaderProgram::basicShader->u("P"), 1, false, glm::value_ptr(P));
     glUniformMatrix4fv(ShaderProgram::basicShader->u("V"), 1, false, glm::value_ptr(V));
 
-    Teren::trawa->renderTeren(
-        glm::vec3(MAX_TERRAIN_N * -1.0f, ZERO_LEVEL, MAX_TERRAIN_N * -0.8f)
+    float terBorderDistance = MAX_TERRAIN_N * TERRAIN_TRIANGLE_SIZE * -0.5f;
+    Teren::grass->renderTeren(
+        glm::vec3(terBorderDistance, ZERO_LEVEL, terBorderDistance)
     );
 
     tank->turnTank(glfwGetTime(), tankTurnDirection);
