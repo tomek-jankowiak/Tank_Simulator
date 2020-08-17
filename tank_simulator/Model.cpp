@@ -26,22 +26,22 @@ void Model::render() const
 }
 
 void Model::loadModels()
-{	antenna1 = fromOBJfile("models/antenna_1.obj", false);
-	antenna2 = fromOBJfile("models/antenna_2.obj", false);
-	body = fromOBJfile("models/body.obj", true);
-	cannon = fromOBJfile("models/cannon.obj", false);
-	hatch = fromOBJfile("models/hatch.obj", false);
-	leftEngineWheel = fromOBJfile("models/left_engine_wheel.obj", false);
-	leftSmallWheel = fromOBJfile("models/left_small_wheel.obj", false);
-	leftWheel = fromOBJfile("models/left_wheel.obj", false);
-	frontLight = fromOBJfile("models/light_front.obj", false);
-	rearLight = fromOBJfile("models/light_rear.obj", false);
-	machineGun = fromOBJfile("models/machine_gun.obj", false);
-	rightEngineWheel = fromOBJfile("models/right_engine_wheel.obj", false);
-	rightSmallWheel = fromOBJfile("models/right_small_wheel.obj", false);
-	rightWheel = fromOBJfile("models/right_wheel.obj", false);
-	track = fromOBJfile("models/track.obj", false);
-	turret = fromOBJfile("models/turret.obj", true);
+{	antenna1 = fromOBJfile("models/antenna_1.obj");
+	antenna2 = fromOBJfile("models/antenna_2.obj");
+	body = fromOBJfile("models/body.obj");
+	cannon = fromOBJfile("models/cannon.obj");
+	hatch = fromOBJfile("models/hatch.obj");
+	leftEngineWheel = fromOBJfile("models/left_engine_wheel.obj");
+	leftSmallWheel = fromOBJfile("models/left_small_wheel.obj");
+	leftWheel = fromOBJfile("models/left_wheel.obj");
+	frontLight = fromOBJfile("models/light_front.obj");
+	rearLight = fromOBJfile("models/light_rear.obj");
+	machineGun = fromOBJfile("models/machine_gun.obj");
+	rightEngineWheel = fromOBJfile("models/right_engine_wheel.obj");
+	rightSmallWheel = fromOBJfile("models/right_small_wheel.obj");
+	rightWheel = fromOBJfile("models/right_wheel.obj");
+	track = fromOBJfile("models/track.obj");
+	turret = fromOBJfile("models/turret.obj");
 }
 
 void Model::deleteModels()
@@ -64,7 +64,7 @@ void Model::deleteModels()
 	delete turret;
 }
 
-Model* Model::fromOBJfile(const std::string& filename, bool reverseNormals)
+Model* Model::fromOBJfile(const std::string& filename)
 {
 	std::vector<glm::vec4> tmpVertices, tmpNormals;
 	std::vector<glm::vec2> tmpUvs;
@@ -85,8 +85,6 @@ Model* Model::fromOBJfile(const std::string& filename, bool reverseNormals)
 		}
 		else if (head == "vn") {
 			file >> x >> y >> z;
-			if (reverseNormals)
-				y = -y;
 			tmpNormals.push_back(glm::vec4(x, y, z, .0f));
 		}
 		else if (head == "f") {
