@@ -11,6 +11,6 @@ public:
 	static void loadTextures();
 	static void deleteTextures();
 
-	static GLuint body, track, wheel, black;
+	static GLuint body, track, wheel, black, grass;
 };
 

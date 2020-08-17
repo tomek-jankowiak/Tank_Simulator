@@ -4,14 +4,14 @@
 
 #include <vector>
 
-GLuint Texture::body, Texture::track, Texture::wheel, Texture::black;
+GLuint Texture::body, Texture::track, Texture::wheel, Texture::black, Texture::grass;
 
 void Texture::loadTextures()
 {
 	body = fromPNGfile("textures/body.png");
 	track = fromPNGfile("textures/track.png");
 	black = fromPNGfile("textures/black.png");
-
+	grass = fromPNGfile("textures/grass.png");
 	printf("Textures loaded.\n");
 }
 

@@ -13,7 +13,7 @@ out vec4 ic;
 void main(void)
 {
 	vec4 color = vec4(1, 1, 1, 1);
-	vec4 lightPos = vec4(0, -7, -4, 1);
+	vec4 lightPos = vec4(0, -4, 0, 1);
 	vec4 l = normalize(V * lightPos - V * M * vertex);
 	vec4 n = normalize(V * M * normal);
 

@@ -67,64 +67,110 @@ void Tank::renderTank()
 
 
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(bodyM));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(bodyM));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::body);
 	Model::body->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(turretM));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(turretM));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::body);
 	Model::turret->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(cannonM));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(cannonM));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::body);
 	Model::cannon->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_ANTENNA_1)));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_ANTENNA_1)));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::black);
 	Model::antenna1->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_ANTENNA_2)));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_ANTENNA_2)));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::black);
 	Model::antenna2->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_HATCH)));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_HATCH)));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::body);
 	Model::hatch->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(leftEngineWheelM));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(leftEngineWheelM));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::body);
 	Model::leftEngineWheel->render();
 
 	for (int i = 0; i < 5; i++) {
-		glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(leftSmallWheelM[i]));
+		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(leftSmallWheelM[i]));
+		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, Texture::body);
 		Model::leftSmallWheel->render();
 	}
 
 	for (int i = 0; i < 7; i++) {
-		glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(leftWheelM[i]));
+		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(leftWheelM[i]));
+		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, Texture::body);
 		Model::leftWheel->render();
 	}
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(rightEngineWheelM));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(rightEngineWheelM));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::body);
 	Model::rightEngineWheel->render();
 
 	for (int i = 0; i < 5; i++) {
-		glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(rightSmallWheelM[i]));
+		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(rightSmallWheelM[i]));
+		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, Texture::body);
 		Model::rightSmallWheel->render();
 	}
 
 	for (int i = 0; i < 7; i++) {
-		glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(rightWheelM[i]));
+		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(rightWheelM[i]));
+		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, Texture::body);
 		Model::rightWheel->render();
 	}
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_FRONT_LIGHT)));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_FRONT_LIGHT)));
 	Model::frontLight->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_REAR_LIGHT)));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_REAR_LIGHT)));
 	Model::rearLight->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_MACHINE_GUN)));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_MACHINE_GUN)));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::black);
 	Model::machineGun->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_LEFT_TRACK)));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_LEFT_TRACK)));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::track);
 	Model::track->render();
 
-	glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_RIGHT_TRACK)));
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_RIGHT_TRACK)));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::track);
 	Model::track->render();
+
 }
 
 void Tank::moveTank(float time, std::string &mode)

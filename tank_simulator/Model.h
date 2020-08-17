@@ -12,7 +12,7 @@ private:
 	int _count;
 	const std::vector<float> _vertices, _normals, _uvs;
 
-	static Model* fromOBJfile(const std::string&);
+	static Model* fromOBJfile(const std::string&, bool);
 
 public:
 	Model(const std::vector<float>&, const std::vector<float>&, const std::vector<float>&);

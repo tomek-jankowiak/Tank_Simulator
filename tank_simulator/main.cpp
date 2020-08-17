@@ -28,7 +28,7 @@ currWidth = INITIAL_WIDTH,
 currHeight = INITIAL_HEIGHT;
 
 glm::mat4 P, V, M;
-glm::vec4 light = glm::vec4(.0f, -7.0f, -4.0f, 1.0f);
+glm::vec4 light = glm::vec4(.0f, 3.0f, -4.0f, 1.0f);
 
 std::string
 tankMoveMode,
@@ -215,6 +215,11 @@ void drawScene(GLFWwindow* window)
     Teren::grass->renderTeren(
         glm::vec3(terBorderDistance, ZERO_LEVEL, terBorderDistance)
     );
+
+    ShaderProgram::tankShader->use();
+    glUniformMatrix4fv(ShaderProgram::tankShader->u("P"), 1, false, glm::value_ptr(P));
+    glUniformMatrix4fv(ShaderProgram::tankShader->u("V"), 1, false, glm::value_ptr(V));
+    glUniform4fv(ShaderProgram::tankShader->u("light"), 1, glm::value_ptr(light));
 
     tank->turnTank(glfwGetTime(), tankTurnDirection);
     tank->moveTank(glfwGetTime(), tankMoveMode);
