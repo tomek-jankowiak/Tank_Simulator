@@ -113,7 +113,7 @@ void Tank::renderTank()
 		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(leftSmallWheelM[i]));
 		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture::body);
+		glBindTexture(GL_TEXTURE_2D, Texture::wheel);
 		Model::leftSmallWheel->render();
 	}
 
@@ -121,21 +121,21 @@ void Tank::renderTank()
 		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(leftWheelM[i]));
 		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture::body);
+		glBindTexture(GL_TEXTURE_2D, Texture::wheel);
 		Model::leftWheel->render();
 	}
 
 	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(rightEngineWheelM));
 	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::body);
+	glBindTexture(GL_TEXTURE_2D, Texture::wheel);
 	Model::rightEngineWheel->render();
 
 	for (int i = 0; i < 5; i++) {
 		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(rightSmallWheelM[i]));
 		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture::body);
+		glBindTexture(GL_TEXTURE_2D, Texture::wheel);
 		Model::rightSmallWheel->render();
 	}
 
@@ -143,14 +143,20 @@ void Tank::renderTank()
 		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(rightWheelM[i]));
 		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture::body);
+		glBindTexture(GL_TEXTURE_2D, Texture::wheel);
 		Model::rightWheel->render();
 	}
 
 	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_FRONT_LIGHT)));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::frontLight);
 	Model::frontLight->render();
 
 	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_REAR_LIGHT)));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::rearLight);
 	Model::rearLight->render();
 
 	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_MACHINE_GUN)));

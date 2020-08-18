@@ -4,12 +4,15 @@
 
 #include <vector>
 
-GLuint Texture::body, Texture::track, Texture::wheel, Texture::black, Texture::grass;
+GLuint Texture::body, Texture::track, Texture::wheel, Texture::rearLight, Texture::frontLight, Texture::black, Texture::grass;
 
 void Texture::loadTextures()
 {
 	body = fromPNGfile("textures/body.png");
 	track = fromPNGfile("textures/track.png");
+	wheel = fromPNGfile("textures/green.png");
+	rearLight = fromPNGfile("textures/rearlight.png");
+	frontLight = fromPNGfile("textures/frontlight.png");
 	black = fromPNGfile("textures/black.png");
 	grass = fromPNGfile("textures/grass.png");
 	printf("Textures loaded.\n");
@@ -20,7 +23,10 @@ void Texture::deleteTextures()
 	glDeleteTextures(1, &body);
 	glDeleteTextures(1, &track);
 	glDeleteTextures(1, &wheel);
+	glDeleteTextures(1, &rearLight);
+	glDeleteTextures(1, &frontLight);
 	glDeleteTextures(1, &black);
+	glDeleteTextures(1, &grass);
 }
 
 GLuint Texture::fromPNGfile(const char *filename)
@@ -37,8 +43,8 @@ GLuint Texture::fromPNGfile(const char *filename)
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	return tex;
 }
