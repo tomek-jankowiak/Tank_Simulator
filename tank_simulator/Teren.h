@@ -17,6 +17,7 @@ public:
 
 	static void prepareTeren(float, float, int);
 	void renderTeren(glm::vec3) const;
+	static void deleteTeren();
 
 	static const Teren* grass;
 };
