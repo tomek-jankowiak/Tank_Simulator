@@ -7,7 +7,7 @@ const float
 PI = 3.141592653589793f,
 FOV = 50.0f * PI / 180.0f,
 Z_NEAR = 0.01f,
-Z_FAR = 50.0f,
+Z_FAR = 150.0f,
 TANK_ACCELERATION = 0.5f,
 TANK_MAX_FORWARD_SPEED = 20.0f,
 TANK_MAX_BACKWARD_SPEED = -5.0f,
@@ -17,13 +17,15 @@ TANK_MAX_CANNON_ANGLE = 20.0f * PI / 180,
 TANK_MIN_CANNON_ANGLE = -10.0f * PI / 180,
 TANK_SMALL_WHEEL_RADIUS = 0.8f,
 TANK_WHEEL_RADIUS = 0.15f,
-ZERO_LEVEL = -0.5f,  // the height value of the lowest point of the tank/track
-TERRAIN_TRIANGLE_SIZE = 16.0f;  // the size of a triangle's side used when building terrain
+ZERO_LEVEL = -0.2955f,  // the height value of the lowest point of the tank/track
+TERRAIN_TRIANGLE_SIZE = 8.0f,  // the size of a triangle's side used when building terrain
+CAMERA_MAX_PITCH = 90.0f,
+CAMERA_MIN_PITCH = 5.0f;
 
 const int
 INITIAL_WIDTH = 1000,
 INITIAL_HEIGHT = 1000,
-MAX_TERRAIN_N = 25;  // max number of squares that make up the terrain
+MAX_TERRAIN_N = 15;  // max number of squares that make up the terrain
 
 using namespace glm;
 const vec3

@@ -4,7 +4,8 @@
 
 #include <vector>
 
-GLuint Texture::body, Texture::track, Texture::wheel, Texture::rearLight, Texture::frontLight, Texture::black, Texture::grass;
+GLuint Texture::body, Texture::track, Texture::wheel, Texture::rearLight, Texture::frontLight, Texture::black;
+GLuint Texture::grass, Texture::grassLightweight, Texture::grassPattern;
 
 void Texture::loadTextures()
 {
@@ -15,6 +16,8 @@ void Texture::loadTextures()
 	frontLight = fromPNGfile("textures/frontlight.png");
 	black = fromPNGfile("textures/black.png");
 	grass = fromPNGfile("textures/grass.png");
+	grassLightweight = fromPNGfile("textures/grass_lt.png");
+	grassPattern = fromPNGfile("textures/grassPattern.png");
 	printf("Textures loaded.\n");
 }
 
@@ -27,6 +30,8 @@ void Texture::deleteTextures()
 	glDeleteTextures(1, &frontLight);
 	glDeleteTextures(1, &black);
 	glDeleteTextures(1, &grass);
+	glDeleteTextures(1, &grassLightweight);
+	glDeleteTextures(1, &grassPattern);
 }
 
 GLuint Texture::fromPNGfile(const char *filename)

@@ -31,6 +31,8 @@ void Camera::moveCamera(float time) {
 
 void Camera::calcCamPitch(float time) {
 	camPitch += camVerticalSpeed * time;
+	if (camPitch < CAMERA_MIN_PITCH || camPitch > CAMERA_MAX_PITCH)
+		camPitch -= camVerticalSpeed * time;
 }
 void Camera::calcCamAngle(float time) {
 	camAngle += camHorizontalSpeed * time;
