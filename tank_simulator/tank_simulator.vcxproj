@@ -39,10 +39,10 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="f_basic.glsl" />
+    <None Include="terenFragment.glsl" />
     <None Include="phongFragment.glsl" />
     <None Include="phongVertex.glsl" />
-    <None Include="v_basic.glsl" />
+    <None Include="terenVertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

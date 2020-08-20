@@ -1,12 +1,10 @@
 #include "Tank.h"
 #include "shaderProgram.h"
 #include "constants.h"
-#include "Model.h"
 #include "Texture.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <GL/glew.h>
 
 Tank::Tank(glm::mat4 &M)
 {
@@ -24,6 +22,21 @@ Tank::Tank(glm::mat4 &M)
 	turnSpeed = .0f;
 	turretTurnSpeed = .0f;
 	cannonTurnSpeed = .0f;
+}
+
+void Tank::renderElement(const Model* element, glm::mat4& M, GLuint &texture0, GLuint &texture1, GLuint &spec)
+{
+	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(M));
+	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
+	glUniform1i(ShaderProgram::tankShader->u("texMap1"), 1);
+	glUniform1i(ShaderProgram::tankShader->u("texMap2"), 2);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture0);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, spec);
+	element->render();
 }
 
 void Tank::renderTank()
@@ -64,118 +77,52 @@ void Tank::renderTank()
 		rightWheelM[i] = glm::rotate(rightWheelM[i], rightWheelsAngle, glm::vec3(1.0f, .0f, .0f));
 	}
 	
-
-
-
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(bodyM));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::body);
-	Model::body->render();
-
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(turretM));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::body);
-	Model::turret->render();
-
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(cannonM));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::body);
-	Model::cannon->render();
-
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_ANTENNA_1)));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::black);
-	Model::antenna1->render();
-
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_ANTENNA_2)));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::black);
-	Model::antenna2->render();
-
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_HATCH)));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::body);
-	Model::hatch->render();
-
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(leftEngineWheelM));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::body);
-	Model::leftEngineWheel->render();
+	renderElement(Model::body, bodyM, Texture::body, Texture::tankMetal, Texture::tankSpec);
+	renderElement(Model::turret, turretM, Texture::body, Texture::tankMetal, Texture::tankSpec);
+	renderElement(Model::cannon, cannonM, Texture::body, Texture::tankMetal, Texture::tankSpec);
+	renderElement(Model::leftEngineWheel, leftEngineWheelM, Texture::wheel, Texture::tankMetal, Texture::tankSpec);
+	renderElement(Model::rightEngineWheel, rightEngineWheelM, Texture::wheel, Texture::tankMetal, Texture::tankSpec);
 
 	for (int i = 0; i < 5; i++) {
-		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(leftSmallWheelM[i]));
-		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture::wheel);
-		Model::leftSmallWheel->render();
+		renderElement(Model::leftSmallWheel, leftSmallWheelM[i], Texture::wheel, Texture::tankMetal, Texture::tankSpec);
 	}
 
 	for (int i = 0; i < 7; i++) {
-		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(leftWheelM[i]));
-		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture::wheel);
-		Model::leftWheel->render();
+		renderElement(Model::leftWheel, leftWheelM[i], Texture::wheel, Texture::tankMetal, Texture::tankSpec);
 	}
 
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(rightEngineWheelM));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::wheel);
-	Model::rightEngineWheel->render();
-
 	for (int i = 0; i < 5; i++) {
-		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(rightSmallWheelM[i]));
-		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture::wheel);
-		Model::rightSmallWheel->render();
+		renderElement(Model::rightSmallWheel, rightSmallWheelM[i], Texture::wheel, Texture::tankMetal, Texture::tankSpec);
 	}
 
 	for (int i = 0; i < 7; i++) {
-		glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(rightWheelM[i]));
-		glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Texture::wheel);
-		Model::rightWheel->render();
+		renderElement(Model::rightWheel, rightWheelM[i], Texture::wheel, Texture::tankMetal, Texture::tankSpec);
 	}
 
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_FRONT_LIGHT)));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::frontLight);
-	Model::frontLight->render();
+	glm::mat4 tmpM;
+	tmpM = glm::translate(turretM, TANK_ANTENNA_1);
+	renderElement(Model::antenna1, tmpM, Texture::black, Texture::tankMetal, Texture::tankSpec);
 
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_REAR_LIGHT)));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::rearLight);
-	Model::rearLight->render();
+	tmpM = glm::translate(turretM, TANK_ANTENNA_2);
+	renderElement(Model::antenna2, tmpM, Texture::black, Texture::tankMetal, Texture::tankSpec);
 
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(turretM, TANK_MACHINE_GUN)));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::black);
-	Model::machineGun->render();
+	tmpM = glm::translate(turretM, TANK_HATCH);
+	renderElement(Model::hatch, tmpM, Texture::body, Texture::tankMetal, Texture::tankSpec);
 
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_LEFT_TRACK)));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::track);
-	Model::track->render();
+	tmpM = glm::translate(bodyM, TANK_FRONT_LIGHT);
+	renderElement(Model::frontLight, tmpM, Texture::frontLight, Texture::tankMetal, Texture::tankSpec);
 
-	glUniformMatrix4fv(ShaderProgram::tankShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_RIGHT_TRACK)));
-	glUniform1i(ShaderProgram::tankShader->u("texMap0"), 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture::track);
-	Model::track->render();
+	tmpM = glm::translate(bodyM, TANK_REAR_LIGHT);
+	renderElement(Model::rearLight, tmpM, Texture::rearLight, Texture::tankMetal, Texture::tankSpec);
+
+	tmpM = glm::translate(turretM, TANK_MACHINE_GUN);
+	renderElement(Model::machineGun, tmpM, Texture::black, Texture::tankMetal, Texture::tankSpec);
+
+	tmpM = glm::translate(bodyM, TANK_LEFT_TRACK);
+	renderElement(Model::track, tmpM, Texture::track, Texture::tankMetal, Texture::tankSpec);
+
+	tmpM = glm::translate(bodyM, TANK_RIGHT_TRACK);
+	renderElement(Model::track, tmpM, Texture::track, Texture::tankMetal, Texture::tankSpec);
 
 }
 
@@ -203,7 +150,7 @@ void Tank::moveTank(float time, std::string &mode)
 	leftSmallWheelsAngle += -moveSpeed * time / TANK_SMALL_WHEEL_RADIUS;
 	leftWheelsAngle += -moveSpeed * time / TANK_WHEEL_RADIUS;
 	rightSmallWheelsAngle += -moveSpeed * time / TANK_SMALL_WHEEL_RADIUS;
-	rightWheelsAngle += -moveSpeed * time / TANK_SMALL_WHEEL_RADIUS;
+	rightWheelsAngle += -moveSpeed * time / TANK_WHEEL_RADIUS;
 
 	float shift = moveSpeed * time;
 	bodyM = glm::translate(bodyM, glm::vec3(.0f, .0f, -shift));

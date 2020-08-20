@@ -4,11 +4,13 @@
 
 #include <vector>
 
-GLuint Texture::body, Texture::track, Texture::wheel, Texture::rearLight, Texture::frontLight, Texture::black;
+GLuint Texture::tankMetal, Texture::tankSpec, Texture::body, Texture::track, Texture::wheel, Texture::rearLight, Texture::frontLight, Texture::black;
 GLuint Texture::grass, Texture::grassLightweight, Texture::grassPattern;
 
 void Texture::loadTextures()
 {
+	tankMetal = fromPNGfile("textures/tank_metal.png");
+	tankSpec = fromPNGfile("textures/tank_spec.png");
 	body = fromPNGfile("textures/body.png");
 	track = fromPNGfile("textures/track.png");
 	wheel = fromPNGfile("textures/green.png");

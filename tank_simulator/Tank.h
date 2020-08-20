@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <string>
 
+#include "Model.h"
+
 class Tank
 {
 private:
@@ -16,6 +18,9 @@ private:
 	float rightSmallWheelsAngle;
 	float rightWheelsAngle;
 
+	void renderElement(const Model*, glm::mat4&, GLuint&, GLuint&, GLuint&);
+	void updateTankPosition();
+
 public:
 	float moveSpeed;
 	float turnSpeed;
@@ -25,11 +30,11 @@ public:
 	Tank(glm::mat4&);
 
 	void renderTank();
+	void renderLights();
 	void moveTank(float, std::string&);
 	void turnTank(float, std::string&);
 	void turnTurret(float);
 	void turnCannon(float);
-	void updateTankPosition();
 
 	glm::vec3 getTankPosition();
 	float getTankBodyAngle();

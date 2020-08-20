@@ -67,9 +67,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="v_basic.glsl" />
-    <None Include="f_basic.glsl" />
     <None Include="phongVertex.glsl" />
     <None Include="phongFragment.glsl" />
+    <None Include="terenFragment.glsl" />
+    <None Include="terenVertex.glsl" />
   </ItemGroup>
 </Project>

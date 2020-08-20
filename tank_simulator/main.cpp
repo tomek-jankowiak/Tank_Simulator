@@ -210,6 +210,17 @@ void drawScene(GLFWwindow* window)
             glm::vec3(.0f, 1.0f, .0f)
         );
 
+    tank->turnTank(glfwGetTime(), tankTurnDirection);
+    tank->moveTank(glfwGetTime(), tankMoveMode);
+    if (tank->turretTurnSpeed != 0)
+        tank->turnTurret(glfwGetTime());
+    if (tank->cannonTurnSpeed != 0)
+        tank->turnCannon(glfwGetTime());
+
+    camera->moveCamera(glfwGetTime());
+
+    glfwSetTime(0);
+
     ShaderProgram::basicShader->use();
     glUniformMatrix4fv(ShaderProgram::basicShader->u("P"), 1, false, glm::value_ptr(P));
     glUniformMatrix4fv(ShaderProgram::basicShader->u("V"), 1, false, glm::value_ptr(V));
@@ -224,16 +235,6 @@ void drawScene(GLFWwindow* window)
     glUniformMatrix4fv(ShaderProgram::tankShader->u("V"), 1, false, glm::value_ptr(V));
     glUniform4fv(ShaderProgram::tankShader->u("light"), 1, glm::value_ptr(light));
 
-    tank->turnTank(glfwGetTime(), tankTurnDirection);
-    tank->moveTank(glfwGetTime(), tankMoveMode);
-    if (tank->turretTurnSpeed != 0)
-        tank->turnTurret(glfwGetTime());
-    if (tank->cannonTurnSpeed != 0)
-        tank->turnCannon(glfwGetTime());
-    
-    camera->moveCamera(glfwGetTime());
-
-    glfwSetTime(0);
     tank->renderTank();
     
     glfwSwapBuffers(window);

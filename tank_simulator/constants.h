@@ -41,7 +41,7 @@ TANK_RIGHT_ENGINE_WHEEL = vec3(0.76f, -0.16f, 1.35f),
 TANK_FRONT_LIGHT = vec3(-0.53f, 0.21f, -1.42f),
 TANK_REAR_LIGHT = vec3(0.0f, 0.12f, 1.50f),
 TANK_MACHINE_GUN = vec3(0.0f, 0.34f, 0.27f),
-TANK_TURRET = vec3(0.0f, 0.56f, 0.02f),
+TANK_TURRET = vec3(0.0f, 0.46f, 0.02f),
 TANK_LEFT_WHEELS[] = {
 	vec3(-0.76f, -0.33f, 1.05f),
 	vec3(-0.76f, -0.33f, 0.65f),
