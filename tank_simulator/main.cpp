@@ -221,9 +221,9 @@ void drawScene(GLFWwindow* window)
 
     glfwSetTime(0);
 
-    ShaderProgram::basicShader->use();
-    glUniformMatrix4fv(ShaderProgram::basicShader->u("P"), 1, false, glm::value_ptr(P));
-    glUniformMatrix4fv(ShaderProgram::basicShader->u("V"), 1, false, glm::value_ptr(V));
+    ShaderProgram::terenShader->use();
+    glUniformMatrix4fv(ShaderProgram::terenShader->u("P"), 1, false, glm::value_ptr(P));
+    glUniformMatrix4fv(ShaderProgram::terenShader->u("V"), 1, false, glm::value_ptr(V));
 
     float terBorderDistance = MAX_TERRAIN_N * TERRAIN_TRIANGLE_SIZE * -0.5f;
     Teren::grass->renderTeren(

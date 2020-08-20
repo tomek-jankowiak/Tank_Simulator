@@ -73,17 +73,17 @@ void Teren::prepareTeren(float size, float height, int max)
 void Teren::renderTeren(glm::vec3 center) const {
     glm::mat4 terM = glm::mat4(1.0f);
     terM = glm::translate(terM, center);
-    glUniformMatrix4fv(ShaderProgram::basicShader->u("M"), 1, false, glm::value_ptr(terM));
+    glUniformMatrix4fv(ShaderProgram::terenShader->u("M"), 1, false, glm::value_ptr(terM));
 
-    glUniform1f(ShaderProgram::basicShader->u("maxFurLength"), 0.1f);
+    glUniform1f(ShaderProgram::terenShader->u("maxFurLength"), 0.1f);
     // while changing the value below: remember to change the corresponding value in `glDrawArraysInstanced`
-    glUniform1f(ShaderProgram::basicShader->u("maxLayer"), 20);
+    glUniform1f(ShaderProgram::terenShader->u("maxLayer"), 20);
     
-    glUniform1i(ShaderProgram::basicShader->u("texMap0"), 0);
+    glUniform1i(ShaderProgram::terenShader->u("texMap0"), 0);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, Texture::grassPattern);
 
-    glUniform1i(ShaderProgram::basicShader->u("texMap1"), 1);
+    glUniform1i(ShaderProgram::terenShader->u("texMap1"), 1);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, Texture::grass);
 
