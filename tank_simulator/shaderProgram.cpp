@@ -1,6 +1,6 @@
 ﻿#include "shaderprogram.h"
 
-const ShaderProgram *ShaderProgram::terenShader, *ShaderProgram::tankShader;
+const ShaderProgram *ShaderProgram::terenShader, *ShaderProgram::tankShader, *ShaderProgram::trackShader;
 
 ShaderProgram::ShaderProgram(const char* vertexShaderFile, const char* geometryShaderFile, const char* fragmentShaderFile)
 {
@@ -123,10 +123,12 @@ void ShaderProgram::loadShaders()
 {
 	terenShader = new ShaderProgram("terenVertex.glsl", nullptr, "terenFragment.glsl");
 	tankShader = new ShaderProgram("phongVertex.glsl", nullptr, "phongFragment.glsl");
+	trackShader = new ShaderProgram("trackVertex.glsl", nullptr, "trackFragment.glsl");
 }
 
 void ShaderProgram::deleteShaders()
 {
 	delete terenShader;
 	delete tankShader;
+	delete trackShader;
 }

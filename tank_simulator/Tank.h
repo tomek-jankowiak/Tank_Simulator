@@ -30,7 +30,7 @@ public:
 	Tank(glm::mat4&);
 
 	void renderTank();
-	void renderLights();
+	void renderTracks();
 	void moveTank(float, std::string&);
 	void turnTank(float, std::string&);
 	void turnTurret(float);

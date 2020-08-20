@@ -118,12 +118,27 @@ void Tank::renderTank()
 	tmpM = glm::translate(turretM, TANK_MACHINE_GUN);
 	renderElement(Model::machineGun, tmpM, Texture::black, Texture::tankMetal, Texture::tankSpec);
 
-	tmpM = glm::translate(bodyM, TANK_LEFT_TRACK);
-	renderElement(Model::track, tmpM, Texture::track, Texture::tankMetal, Texture::tankSpec);
+}
 
-	tmpM = glm::translate(bodyM, TANK_RIGHT_TRACK);
-	renderElement(Model::track, tmpM, Texture::track, Texture::tankMetal, Texture::tankSpec);
+void Tank::renderTracks()
+{
+	glUniformMatrix4fv(ShaderProgram::trackShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_LEFT_TRACK)));
+	glUniform1i(ShaderProgram::trackShader->u("texMap0"), 0);
+	glUniform1i(ShaderProgram::trackShader->u("normalMap"), 1);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::track);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, Texture::trackNormal);
+	Model::track->renderNormalMapping();
 
+	glUniformMatrix4fv(ShaderProgram::trackShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_RIGHT_TRACK)));
+	glUniform1i(ShaderProgram::trackShader->u("texMap0"), 0);
+	glUniform1i(ShaderProgram::trackShader->u("normalMap"), 1);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture::track);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, Texture::trackNormal);
+	Model::track->renderNormalMapping();
 }
 
 void Tank::moveTank(float time, std::string &mode)

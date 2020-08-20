@@ -43,6 +43,8 @@
     <None Include="phongFragment.glsl" />
     <None Include="phongVertex.glsl" />
     <None Include="terenVertex.glsl" />
+    <None Include="trackFragment.glsl" />
+    <None Include="trackVertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

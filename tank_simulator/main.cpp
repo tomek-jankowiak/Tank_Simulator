@@ -28,7 +28,7 @@ currWidth = INITIAL_WIDTH,
 currHeight = INITIAL_HEIGHT;
 
 glm::mat4 P, V, M;
-glm::vec4 light = glm::vec4(.0f, 3.0f, -4.0f, 1.0f);
+glm::vec4 light = glm::vec4(.0f, 4.0f, 0.0f, 1.0f);
 
 std::string
 tankMoveMode,
@@ -236,6 +236,13 @@ void drawScene(GLFWwindow* window)
     glUniform4fv(ShaderProgram::tankShader->u("light"), 1, glm::value_ptr(light));
 
     tank->renderTank();
+
+    ShaderProgram::trackShader->use();
+    glUniformMatrix4fv(ShaderProgram::trackShader->u("P"), 1, false, glm::value_ptr(P));
+    glUniformMatrix4fv(ShaderProgram::trackShader->u("V"), 1, false, glm::value_ptr(V));
+    glUniform4fv(ShaderProgram::trackShader->u("light"), 1, glm::value_ptr(light));
+
+    tank->renderTracks();
     
     glfwSwapBuffers(window);
 }

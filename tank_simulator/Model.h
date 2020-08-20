@@ -10,14 +10,15 @@ class Model
 {
 private:
 	int _count;
-	const std::vector<float> _vertices, _normals, _uvs;
+	const std::vector<float> _vertices, _normals, _uvs, _tangents, _bitangents;
 
 	static Model* fromOBJfile(const std::string&);
 
 public:
-	Model(const std::vector<float>&, const std::vector<float>&, const std::vector<float>&);
+	Model(const std::vector<float>&, const std::vector<float>&, const std::vector<float>&, const std::vector<float>&, const std::vector<float>&);
 	void render() const;
-	
+	void renderNormalMapping() const;
+
 	static void loadModels();
 	static void deleteModels();
 

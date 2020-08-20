@@ -71,5 +71,7 @@
     <None Include="phongFragment.glsl" />
     <None Include="terenFragment.glsl" />
     <None Include="terenVertex.glsl" />
+    <None Include="trackVertex.glsl" />
+    <None Include="trackFragment.glsl" />
   </ItemGroup>
 </Project>
