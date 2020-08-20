@@ -18,8 +18,7 @@ out float layer;
 
 
 void main(void) {
-	vec4 lightPos = vec4(0, 6, 0, 1);
-	l = normalize(V * lightPos - V * M * vertex);
+	l = vec4(-0.21, -1, -0.37, 0);
 	n = normalize(V * M * normal);
 	iTexCoord0 = texCoord0;
 
