@@ -5,7 +5,7 @@
 class Texture
 {
 private:
-	static GLuint fromPNGfile(const char*);
+	static GLuint fromPNGfile(const char*, bool generateMipmap = false);
 
 public:
 	static void loadTextures();

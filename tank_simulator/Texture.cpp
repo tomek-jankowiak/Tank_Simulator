@@ -19,7 +19,7 @@ void Texture::loadTextures()
 	rearLight = fromPNGfile("textures/rearlight.png");
 	frontLight = fromPNGfile("textures/frontlight.png");
 	black = fromPNGfile("textures/black.png");
-	grass = fromPNGfile("textures/grass.png");
+	grass = fromPNGfile("textures/grass.png", true);
 	grassLightweight = fromPNGfile("textures/grass_lt.png");
 	grassPattern = fromPNGfile("textures/grassPattern.png");
 	
@@ -28,8 +28,11 @@ void Texture::loadTextures()
 
 void Texture::deleteTextures()
 {
+	glDeleteTextures(1, &tankMetal);
+	glDeleteTextures(1, &tankSpec);
 	glDeleteTextures(1, &body);
 	glDeleteTextures(1, &track);
+	glDeleteTextures(1, &trackNormal);
 	glDeleteTextures(1, &wheel);
 	glDeleteTextures(1, &rearLight);
 	glDeleteTextures(1, &frontLight);
@@ -39,7 +42,7 @@ void Texture::deleteTextures()
 	glDeleteTextures(1, &grassPattern);
 }
 
-GLuint Texture::fromPNGfile(const char *filename)
+GLuint Texture::fromPNGfile(const char *filename, bool generateMipmap)
 {
 	std::vector<unsigned char> image;
 	unsigned width, height;
@@ -51,7 +54,13 @@ GLuint Texture::fromPNGfile(const char *filename)
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	if (generateMipmap) {
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	}
+	else {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	}
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

@@ -14,10 +14,10 @@ out vec4 pixelColor;
 void main(void)
 {
 	vec4 nnorm = normalize(n);
-	vec4 lnorm = normalize(l);
+	vec4 lnorm = normalize(-l);
 
-	float df = clamp(dot(nnorm, lnorm), 0, 1);
-
+	float ambientStrength = 0.3;
+	
 	vec4 grass = texture(texMap0, iTexCoord0);  // grass pattern
 	vec4 grassColor = texture(texMap1, iTexCoord0);  // grass texture
 	vec4 color = grassColor;                         
@@ -25,5 +25,11 @@ void main(void)
 	if (layer != 0)	color = vec4(grassColor.rgb, grass.a);
 	if (grass.a == 0 && layer != 0)	discard;
 
-	pixelColor = color * vec4(df, df, df, 1);
+	vec4 ambient = vec4(ambientStrength * color.rgb, color.a);
+
+	float df = clamp(max(dot(nnorm, lnorm), 0.1), 0, 1);
+	vec4 diffuse = vec4(df * color.rgb, color.a);
+
+	pixelColor = ambient + diffuse;
+
 }
