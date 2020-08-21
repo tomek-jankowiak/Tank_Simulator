@@ -17,11 +17,11 @@ out vec4 v;
 
 void main(void)
 {
-	mat4 invTBN = inverse(mat4(t, b, normal, vec4(0, 0, 0, 1)));
+	mat4 invTBN = transpose(mat4(t, b, normal, vec4(0, 0, 0, 1)));
 	
 	vec4 tmp = invTBN * vertex;
 	l = normalize(invTBN * inverse(M) * light - tmp);
-	v = normalize(invTBN * inverse(V*M) * vec4(0, 0, 0, 1) - invTBN * vertex);
+	v = normalize(invTBN * inverse(V * M) * vec4(0, 0, 0, 1) - invTBN * vertex);
 	iTexCoord0 = uv;
 
 	gl_Position = P * V * M * vertex;

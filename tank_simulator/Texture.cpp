@@ -4,7 +4,7 @@
 
 #include <vector>
 
-GLuint Texture::tankMetal, Texture::tankSpec, Texture::body, Texture::track, Texture::trackNormal, Texture::wheel, 
+GLuint Texture::tankMetal, Texture::tankSpec, Texture::body, Texture::track, Texture::trackNormal, Texture::trackDepth, Texture::wheel, 
 	Texture::rearLight, Texture::frontLight, Texture::black, Texture::grass, Texture::grassLightweight, Texture::grassPattern;
 
 void Texture::loadTextures()
@@ -14,6 +14,7 @@ void Texture::loadTextures()
 	body = fromPNGfile("textures/body.png");
 	track = fromPNGfile("textures/track.png");
 	trackNormal = fromPNGfile("textures/track_normal.png");
+	trackDepth = fromPNGfile("textures/track_depth.png");
 	wheel = fromPNGfile("textures/green.png");
 	rearLight = fromPNGfile("textures/rearlight.png");
 	frontLight = fromPNGfile("textures/frontlight.png");
@@ -21,6 +22,7 @@ void Texture::loadTextures()
 	grass = fromPNGfile("textures/grass.png");
 	grassLightweight = fromPNGfile("textures/grass_lt.png");
 	grassPattern = fromPNGfile("textures/grassPattern.png");
+	
 	printf("Textures loaded.\n");
 }
 

@@ -125,20 +125,27 @@ void Tank::renderTracks()
 	glUniformMatrix4fv(ShaderProgram::trackShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_LEFT_TRACK)));
 	glUniform1i(ShaderProgram::trackShader->u("texMap0"), 0);
 	glUniform1i(ShaderProgram::trackShader->u("normalMap"), 1);
+	glUniform1i(ShaderProgram::trackShader->u("depthMap"), 2);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Texture::track);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, Texture::trackNormal);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, Texture::trackDepth);
 	Model::track->renderNormalMapping();
 
 	glUniformMatrix4fv(ShaderProgram::trackShader->u("M"), 1, false, glm::value_ptr(glm::translate(bodyM, TANK_RIGHT_TRACK)));
 	glUniform1i(ShaderProgram::trackShader->u("texMap0"), 0);
 	glUniform1i(ShaderProgram::trackShader->u("normalMap"), 1);
+	glUniform1i(ShaderProgram::trackShader->u("depthMap"), 2);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Texture::track);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, Texture::trackNormal);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, Texture::trackDepth);
 	Model::track->renderNormalMapping();
+
 }
 
 void Tank::moveTank(float time, std::string &mode)

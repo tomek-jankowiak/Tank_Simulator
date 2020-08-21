@@ -11,7 +11,7 @@ public:
 	static void loadTextures();
 	static void deleteTextures();
 
-	static GLuint tankMetal, tankSpec, body, track, trackNormal, wheel, rearLight, frontLight, black, 
+	static GLuint tankMetal, tankSpec, body, track, trackNormal, trackDepth, wheel, rearLight, frontLight, black, 
 		grass, grassLightweight, grassPattern;
 };
 

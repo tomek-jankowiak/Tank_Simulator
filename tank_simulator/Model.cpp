@@ -172,7 +172,7 @@ Model* Model::fromOBJfile(const std::string& filename)
 		glm::vec3 deltaPos2 = v2 - v0;
 
 		glm::vec2 deltaUV1 = uv1 - uv0;
-		glm::vec2 deltaUV2 = uv1 - uv0;
+		glm::vec2 deltaUV2 = uv2 - uv0;
 
 		float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
 		glm::vec4 tangent = glm::vec4((deltaPos1 * deltaUV2.y - deltaPos2 * deltaUV1.y) * r, 0.0f);
