@@ -39,6 +39,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="particleGenerator.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -65,6 +68,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="particleGenerator.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="phongVertex.glsl" />
@@ -73,5 +79,7 @@
     <None Include="terenVertex.glsl" />
     <None Include="trackVertex.glsl" />
     <None Include="trackFragment.glsl" />
+    <None Include="particleVertex.glsl" />
+    <None Include="particleFragment.glsl" />
   </ItemGroup>
 </Project>

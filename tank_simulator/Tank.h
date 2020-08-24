@@ -9,7 +9,7 @@ class Tank
 {
 private:
 	glm::vec3 position;
-	glm::mat4 bodyM;
+	glm::mat4 bodyM, cannonM;
 	float bodyAngle;
 	float turretAngle;
 	float cannonAngle;
@@ -38,5 +38,6 @@ public:
 
 	glm::vec3 getTankPosition();
 	float getTankBodyAngle();
+	glm::mat4 getTankCannonM();
 };
 

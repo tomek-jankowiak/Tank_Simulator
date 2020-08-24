@@ -14,9 +14,13 @@
 #include "Texture.h"
 #include "Teren.h"
 #include "Camera.h"
+#include "particleGenerator.h"
 
 void errorCallback(int, const char*);
 void keyCallback(GLFWwindow*, int, int, int, int);
+
+void mouseButtonCallback(GLFWwindow*, int, int, int);
+void scrollCallback(GLFWwindow*, double, double);
 void windowResizeCallback(GLFWwindow*, int, int);
 GLFWwindow* initWindow();
 void initOpenGLProgram(GLFWwindow*);
@@ -27,6 +31,8 @@ int
 currWidth = INITIAL_WIDTH,
 currHeight = INITIAL_HEIGHT;
 
+bool particlesAlive = false;
+
 glm::mat4 P, V, M;
 glm::vec4 light = glm::vec4(.0f, 4.0f, 0.0f, 1.0f);
 
@@ -35,7 +41,7 @@ tankMoveMode,
 tankTurnDirection;
 
 Tank *tank;
-Camera* camera;
+Camera *camera;
 
 
 int main() 
@@ -47,7 +53,7 @@ int main()
     initOpenGLProgram(window);
     glfwSetTime(0);
 
-    printf("Hello world");
+    printf("Hello world\n");
 
     while (!glfwWindowShouldClose(window)) {
         drawScene(window);
@@ -85,6 +91,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
             tank->cannonTurnSpeed = PI / 6;
         if (key == GLFW_KEY_S)
             tank->cannonTurnSpeed = -PI / 6;
+
         if (key == GLFW_KEY_J)
             camera->camHorizontalSpeed = -PI / 3;
         if (key == GLFW_KEY_L)
@@ -93,6 +100,10 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
             camera->camVerticalSpeed = -PI * 6;
         if (key == GLFW_KEY_I)
             camera->camVerticalSpeed = PI * 6;
+        /*
+        if (key == GLFW_KEY_LEFT_SHIFT) 
+            camera->camSniperMode ^= true;
+        */
     }
 
     if (action == GLFW_RELEASE) {
@@ -112,6 +123,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
             tank->cannonTurnSpeed = 0;
         if (key == GLFW_KEY_S)
             tank->cannonTurnSpeed = 0;
+        
         if (key == GLFW_KEY_J)
             camera->camHorizontalSpeed = .0f;
         if (key == GLFW_KEY_L)
@@ -121,6 +133,23 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
         if (key == GLFW_KEY_I)
             camera->camVerticalSpeed = .0f;
     }
+}
+
+void mouseButtonCallback(GLFWwindow* widnow, int button, int action, int mods) {
+    if (action == GLFW_PRESS && button == GLFW_MOUSE_BUTTON_LEFT) {
+        if (!particlesAlive) {
+            ParticleGenerator::gunpoint->respawnParticles();
+            particlesAlive = true;
+            printf("Pew pew!\n");
+        }
+    }
+}
+
+void scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+    if (yoffset == 1)
+        camera->calcCamZoom(-0.75f);
+    if (yoffset == -1)
+        camera->calcCamZoom(0.75f);
 }
 
 void windowResizeCallback(GLFWwindow* window, int width, int height) 
@@ -176,18 +205,19 @@ void initOpenGLProgram(GLFWwindow *window)
     tank = new Tank(M);
     camera = new Camera(tank);
     camera->moveCamera(0);
-    V = glm::lookAt(
-            camera->getCamPosition(),
-            tank->getTankPosition(),
-            glm::vec3(.0f, 1.0f, .0f)
-        );
+
+    ParticleGenerator::prepareParticles(camera);
+
+    V = camera->createView();
 
     glClearColor(0.4, 0.45, 0.66, 1);
     glEnable(GL_DEPTH_TEST);
 
     glfwSetKeyCallback(window, keyCallback);
     glfwSetWindowSizeCallback(window, windowResizeCallback);
-
+    glfwSetMouseButtonCallback(window, mouseButtonCallback);
+    glfwSetScrollCallback(window, scrollCallback);
+    glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, 1);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
@@ -198,17 +228,14 @@ void freeOpenGLProgram(GLFWwindow* window)
     Model::deleteModels();
     Texture::deleteTextures();
     Teren::deleteTeren();
+    ParticleGenerator::deleteParticles();
 }
 
 void drawScene(GLFWwindow* window)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    V = glm::lookAt(
-            camera->getCamPosition(),
-            tank->getTankPosition(),
-            glm::vec3(.0f, 1.0f, .0f)
-        );
+    V = camera->createView();
 
     tank->turnTank(glfwGetTime(), tankTurnDirection);
     tank->moveTank(glfwGetTime(), tankMoveMode);
@@ -218,7 +245,7 @@ void drawScene(GLFWwindow* window)
         tank->turnCannon(glfwGetTime());
 
     camera->moveCamera(glfwGetTime());
-
+    
     glfwSetTime(0);
 
     ShaderProgram::terenShader->use();
@@ -230,6 +257,7 @@ void drawScene(GLFWwindow* window)
         glm::vec3(terBorderDistance, ZERO_LEVEL, terBorderDistance)
     );
 
+    
     ShaderProgram::tankShader->use();
     glUniformMatrix4fv(ShaderProgram::tankShader->u("P"), 1, false, glm::value_ptr(P));
     glUniformMatrix4fv(ShaderProgram::tankShader->u("V"), 1, false, glm::value_ptr(V));
@@ -243,6 +271,12 @@ void drawScene(GLFWwindow* window)
     glUniform4fv(ShaderProgram::trackShader->u("light"), 1, glm::value_ptr(light));
 
     tank->renderTracks();
+
+    if (particlesAlive) {
+        ShaderProgram::particleShader->use();
+        glUniformMatrix4fv(ShaderProgram::particleShader->u("P"), 1, false, glm::value_ptr(P));
+        particlesAlive = ParticleGenerator::gunpoint->renderParticles(V, tank->getTankCannonM());
+    }
     
     glfwSwapBuffers(window);
 }

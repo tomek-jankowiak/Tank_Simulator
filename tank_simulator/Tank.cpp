@@ -10,6 +10,7 @@ Tank::Tank(glm::mat4 &M)
 {
 	position = glm::vec3(.0f, .0f, .0f);
 	bodyM = M;
+	cannonM = glm::translate(glm::translate(bodyM, TANK_TURRET), TANK_CANNON);
 	bodyAngle = .0f;
 	turretAngle = .0f;
 	cannonAngle = .0f;
@@ -44,7 +45,7 @@ void Tank::renderTank()
 	glm::mat4 turretM = glm::translate(bodyM, TANK_TURRET);
 	turretM = glm::rotate(turretM, turretAngle, glm::vec3(.0f, 1.0f, .0f));
 
-	glm::mat4 cannonM = glm::translate(turretM, TANK_CANNON);
+	cannonM = glm::translate(turretM, TANK_CANNON);
 	cannonM = glm::rotate(cannonM, cannonAngle, glm::vec3(1.0f, .0f, .0f));
 
 	glm::mat4 leftEngineWheelM = glm::translate(bodyM, TANK_LEFT_ENGINE_WHEEL);
@@ -240,3 +241,4 @@ void Tank::updateTankPosition() {
 
 glm::vec3 Tank::getTankPosition() { return position; }
 float Tank::getTankBodyAngle() { return bodyAngle; }
+glm::mat4 Tank::getTankCannonM() { return cannonM; }
