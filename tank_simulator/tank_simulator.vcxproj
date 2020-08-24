@@ -23,6 +23,7 @@
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="particleGenerator.cpp" />
     <ClCompile Include="shaderProgram.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="Teren.cpp" />
@@ -33,12 +34,15 @@
     <ClInclude Include="constants.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="particleGenerator.h" />
     <ClInclude Include="shaderProgram.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="Teren.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="particleFragment.glsl" />
+    <None Include="particleVertex.glsl" />
     <None Include="terenFragment.glsl" />
     <None Include="phongFragment.glsl" />
     <None Include="phongVertex.glsl" />
