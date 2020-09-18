@@ -49,28 +49,31 @@ bool ParticleGenerator::renderParticles(glm::mat4 V, glm::mat4 M)
         glVertexAttribPointer(0, 4, GL_FLOAT, false, 0, _parVerts.data());
         glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
+        std::vector<float> uv;
+        for (int i = 0; i < 4; i++) {
+            uv.push_back(_allParticles[0].parColor.r);
+            uv.push_back(_allParticles[0].parColor.g);
+            uv.push_back(_allParticles[0].parColor.b);
+            uv.push_back(_allParticles[0].parColor.a);
+        }
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 4, GL_FLOAT, false, 0, uv.data());
+
+        glm::mat4* particleMatrices = new glm::mat4[PARTICLE_AMOUNT];
         for (int i = 0; i < PARTICLE_AMOUNT; i++) {
             Particle& p = _allParticles[i];
 
             glm::mat4 tmpM = glm::translate(gunpointM, p.parPosition);
             tmpM = glm::scale(tmpM, glm::vec3(p.parScale));
-            glUniformMatrix4fv(ShaderProgram::terenShader->u("M"), 1, false, glm::value_ptr(tmpM));
-
-            std::vector<float> uv;
-            for (int i = 0; i < 4; i++) {
-                uv.push_back(p.parColor.r);
-                uv.push_back(p.parColor.g);
-                uv.push_back(p.parColor.b);
-                uv.push_back(p.parColor.a);
-            }
-
-            glEnableVertexAttribArray(1);
-            glVertexAttribPointer(1, 4, GL_FLOAT, false, 0, uv.data());
-            // needs to be glDrawArraysInstanced for better performance
-            glDrawArrays(GL_TRIANGLE_STRIP, 0, _parCount);
-            glDisableVertexAttribArray(1);
+            particleMatrices[i] = tmpM;
         }
 
+        for (int i = 0; i < PARTICLE_AMOUNT; i++) {
+            glUniformMatrix4fv(ShaderProgram::particleShader->u("M"), 1, false, glm::value_ptr(particleMatrices[i]));
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, _parCount);
+        }
+
+        glDisableVertexAttribArray(1);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glDisableVertexAttribArray(0);
 
@@ -78,22 +81,24 @@ bool ParticleGenerator::renderParticles(glm::mat4 V, glm::mat4 M)
     }
     else
         return false;
-
 }
 
 void ParticleGenerator::updateParticles()
 {   
-    glm::vec3 camPosition = _camera->getCamPosition();
-    float dt = 0.04f;
+    float dt = 0.02f;
     _lifeLeft -= dt;
     if (_lifeLeft > 0) {
+        glm::vec3 camPosition = _camera->getCamPosition();
         for (int i = 0; i < PARTICLE_AMOUNT; i++) {
             Particle& p = _allParticles[i];
-            float randomX = ((rand() % 15) - 7) / 100.0f;
+            float randomX = ((rand() % 21) - 10) / 100.0f;
             float randomY = ((rand() % 15) - 7) / 100.0f;
-            float randomZ = ((rand() % 21)) / 100.0f;
+            float randomZ = ((rand() % 17)) / 100.0f;
             p.parPosition += glm::vec3(randomX, randomY, p.parVelocity.z * dt + randomZ);
             p.parColor.a -= dt;
+            p.parScale -= 0.05f * dt;
+            if (p.parScale < 0)
+                p.parScale = 0.0001f;
             p.parCameraDistance = glm::distance(p.parPosition, camPosition);
         }
         std::sort(&_allParticles[0], &_allParticles[PARTICLE_AMOUNT-1]);
@@ -106,6 +111,7 @@ void ParticleGenerator::respawnParticles()
     for (int i = 0; i < PARTICLE_AMOUNT; i++) {
         Particle& p = _allParticles[i];
         p.parColor.a = 1.0f;
+        p.parScale = 0.05f;
         p.parPosition = glm::vec3(0.0f);
     }
 }

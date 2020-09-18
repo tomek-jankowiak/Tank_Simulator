@@ -15,6 +15,7 @@
 #include "Teren.h"
 #include "Camera.h"
 #include "particleGenerator.h"
+#include "skybox.h"
 
 void errorCallback(int, const char*);
 void keyCallback(GLFWwindow*, int, int, int, int);
@@ -42,6 +43,7 @@ tankTurnDirection;
 
 Tank *tank;
 Camera *camera;
+Skybox* skybox;
 
 
 int main() 
@@ -207,6 +209,7 @@ void initOpenGLProgram(GLFWwindow *window)
     camera->moveCamera(0);
 
     ParticleGenerator::prepareParticles(camera);
+    skybox = new Skybox();
 
     V = camera->createView();
 
@@ -277,6 +280,13 @@ void drawScene(GLFWwindow* window)
         glUniformMatrix4fv(ShaderProgram::particleShader->u("P"), 1, false, glm::value_ptr(P));
         particlesAlive = ParticleGenerator::gunpoint->renderParticles(V, tank->getTankCannonM());
     }
+
+    V = glm::mat4(glm::mat3(camera->createView()));
+    ShaderProgram::skyboxShader->use();
+    glUniformMatrix4fv(ShaderProgram::skyboxShader->u("P"), 1, false, glm::value_ptr(P));
+    glUniformMatrix4fv(ShaderProgram::skyboxShader->u("V"), 1, false, glm::value_ptr(V));
+    skybox->renderSkybox();
+    
     
     glfwSwapBuffers(window);
 }

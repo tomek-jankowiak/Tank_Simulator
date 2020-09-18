@@ -36,6 +36,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="particleGenerator.h" />
     <ClInclude Include="shaderProgram.h" />
+    <ClInclude Include="skybox.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="Teren.h" />
     <ClInclude Include="Texture.h" />
@@ -43,6 +44,8 @@
   <ItemGroup>
     <None Include="particleFragment.glsl" />
     <None Include="particleVertex.glsl" />
+    <None Include="skyboxFragment.glsl" />
+    <None Include="skyboxVertex.glsl" />
     <None Include="terenFragment.glsl" />
     <None Include="phongFragment.glsl" />
     <None Include="phongVertex.glsl" />

@@ -67,3 +67,28 @@ GLuint Texture::fromPNGfile(const char *filename, bool generateMipmap)
 
 	return tex;
 }
+
+GLuint Texture::loadCubemap(std::vector<const char*> faces)
+{	
+	GLuint tex;
+	glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, tex);
+	
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+
+	for (int i = 0; i < faces.size(); i++) {
+		std::vector<unsigned char> image;
+		unsigned width, height;
+		unsigned error = lodepng::decode(image, width, height, faces[i]);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.data());
+	}
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
+	return tex;
+}
