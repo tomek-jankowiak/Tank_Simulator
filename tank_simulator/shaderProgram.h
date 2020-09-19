@@ -21,7 +21,7 @@ public:
 	GLuint u(const char* variableName) const; 
 	GLuint a(const char* variableName) const;
 
-	static const ShaderProgram *terenShader, *tankShader, *trackShader, *particleShader;
+	static const ShaderProgram *terenShader, *tankShader, *trackShader, *particleShader, *skyboxShader;
 
 	static void loadShaders();
 	static void deleteShaders();

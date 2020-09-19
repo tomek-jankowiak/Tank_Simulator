@@ -27,8 +27,8 @@ CAMERA_MIN_DIST = 3.0f;
 const int
 INITIAL_WIDTH = 1000,
 INITIAL_HEIGHT = 1000,
-MAX_TERRAIN_N = 15,  // max number of squares that make up the terrain
-PARTICLE_AMOUNT = 500;
+MAX_TERRAIN_N = 20,  // max number of squares that make up the terrain
+PARTICLE_AMOUNT = 7500;
 
 using namespace glm;
 const vec3

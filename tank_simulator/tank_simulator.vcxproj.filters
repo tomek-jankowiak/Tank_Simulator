@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{05114bd9-b951-44a8-9aea-547dfaab46e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,15 +74,40 @@
     <ClInclude Include="particleGenerator.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="skybox.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="phongVertex.glsl" />
-    <None Include="phongFragment.glsl" />
-    <None Include="terenFragment.glsl" />
-    <None Include="terenVertex.glsl" />
-    <None Include="trackVertex.glsl" />
-    <None Include="trackFragment.glsl" />
-    <None Include="particleVertex.glsl" />
-    <None Include="particleFragment.glsl" />
+    <None Include="phongFragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="phongVertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="terenFragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="terenVertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="trackFragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="trackVertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="particleFragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="particleVertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="skyboxFragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="skyboxVertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
