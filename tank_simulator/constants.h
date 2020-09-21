@@ -27,6 +27,7 @@ CAMERA_MIN_DIST = 3.0f;
 const int
 INITIAL_WIDTH = 1000,
 INITIAL_HEIGHT = 1000,
+LIGHT_COUNT = 2,
 MAX_TERRAIN_N = 20,  // max number of squares that make up the terrain
 PARTICLE_AMOUNT = 7500;
 

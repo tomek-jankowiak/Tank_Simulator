@@ -35,7 +35,10 @@ currHeight = INITIAL_HEIGHT;
 bool particlesAlive = false;
 
 glm::mat4 P, V, M;
-glm::vec4 light = glm::vec4(.0f, 4.0f, 0.0f, 1.0f);
+glm::vec4 light[LIGHT_COUNT] = {
+    glm::vec4(10.0f, 20.0f, -20.0f, 1.0f),
+    glm::vec4(-10.0f, 20.0f, -20.0f, 1.0f)
+};
 
 std::string
 tankMoveMode,
@@ -55,7 +58,7 @@ int main()
     initOpenGLProgram(window);
     glfwSetTime(0);
 
-    printf("Hello world\n");
+    printf("Hello tank!\n");
 
     while (!glfwWindowShouldClose(window)) {
         drawScene(window);
@@ -264,14 +267,14 @@ void drawScene(GLFWwindow* window)
     ShaderProgram::tankShader->use();
     glUniformMatrix4fv(ShaderProgram::tankShader->u("P"), 1, false, glm::value_ptr(P));
     glUniformMatrix4fv(ShaderProgram::tankShader->u("V"), 1, false, glm::value_ptr(V));
-    glUniform4fv(ShaderProgram::tankShader->u("light"), 1, glm::value_ptr(light));
+    glUniform4fv(ShaderProgram::tankShader->u("light"), LIGHT_COUNT, glm::value_ptr(light[0]));
 
     tank->renderTank();
 
     ShaderProgram::trackShader->use();
     glUniformMatrix4fv(ShaderProgram::trackShader->u("P"), 1, false, glm::value_ptr(P));
     glUniformMatrix4fv(ShaderProgram::trackShader->u("V"), 1, false, glm::value_ptr(V));
-    glUniform4fv(ShaderProgram::trackShader->u("light"), 1, glm::value_ptr(light));
+    glUniform4fv(ShaderProgram::trackShader->u("light"), LIGHT_COUNT, glm::value_ptr(light[0]));
 
     tank->renderTracks();
 
